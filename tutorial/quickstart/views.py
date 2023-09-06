@@ -1,9 +1,9 @@
 from pprint import pprint
 
 from django.contrib.auth.models import User, Group
-from rest_framework import viewsets
+
+from rest_framework import viewsets, permissions
 from rest_framework.response import Response
-from rest_framework import permissions
 from rest_framework.views import APIView
 
 from .serializers import UserSerializer, GroupSerializer
@@ -31,5 +31,5 @@ class UserAPIView(APIView):
 class GroupAPIView(APIView):
     def get(self, request, format=None):
         groups = Group.objects.all()
-        serializer = UserSerializer(groups, many=True)
+        serializer = GroupSerializer(groups, many=True)
         return Response(serializer.data)
