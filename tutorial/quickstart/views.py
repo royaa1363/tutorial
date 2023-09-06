@@ -1,7 +1,12 @@
+from pprint import pprint
+
 from django.contrib.auth.models import User, Group
 from rest_framework import viewsets
+from rest_framework.response import Response
 from rest_framework import permissions
-from tutorial.quickstart.serializers import UserSerializer, GroupSerializer
+from rest_framework.views import APIView
+
+from .serializers import UserSerializer, GroupSerializer
 
 
 class UserViewSet(viewsets.ModelViewSet):
@@ -16,3 +21,15 @@ class GroupViewSet(viewsets.ModelViewSet):
     permission_classes = [permissions.IsAuthenticated]
 
 
+class UserAPIView(APIView):
+    def get(self, request, format=None):
+        users = User.objects.all()
+        serializer = UserSerializer(users, many=True)
+        return Response(serializer.data)
+
+
+class GroupAPIView(APIView):
+    def get(self, request, format=None):
+        groups = Group.objects.all()
+        serializer = UserSerializer(groups, many=True)
+        return Response(serializer.data)
