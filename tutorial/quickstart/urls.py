@@ -1,14 +1,14 @@
 from rest_framework import routers
-from .import views
+
 from django.urls import path, include
 
+from .views import UserViewSet, GroupViewSet
+
 router = routers.DefaultRouter()
-router.register(r'users', views.UserViewSet)
-router.register(r'groups', views.GroupViewSet)
+router.register("users", UserViewSet)
+router.register("groups", GroupViewSet)
 
 
 urlpatterns = [
-    path('', include(router.urls)),
-    path("get", views.UserAPIView.as_view()),
-    path("list", views.GroupAPIView.as_view())
+    path("", include(router.urls)),
     ]
